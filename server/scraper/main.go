@@ -1,11 +1,9 @@
 package scraper
 
 import (
-	"encoding/csv"
 	"encoding/json"
 	"fmt"
 	"log"
-	"os"
 	"strings"
 	"thankadigital/bodhnews/db"
 	"thankadigital/bodhnews/types"
@@ -52,9 +50,18 @@ func ScrapeNews() []types.News {
 		collector.OnHTML(structures[0], func(article *colly.HTMLElement) {
 			news := types.News{}
 
+			news.Title = article.ChildText(structures[1])
+
 			urlStructure := strings.Split(structures[2], "-")
 			news.URL = article.ChildAttr(urlStructure[0], urlStructure[1])
-			news.Name = article.ChildText(structures[1])
+
+			// news.Date = article.ChildText(structures[3])
+			news.Summary = article.ChildText(structures[3])
+
+			// TODO: Fix the image src
+			imgStructure := strings.Split(structures[4], "-")
+			news.ImageUrl = article.ChildAttr(imgStructure[0], imgStructure[1])
+
 			news.Source = page.Name
 			news.Category = page.Category
 
@@ -63,33 +70,34 @@ func ScrapeNews() []types.News {
 	}
 
 	collector.OnScraped(func(c *colly.Response) {
-		file, err := os.Create("output/news.csv")
-		if err != nil {
-			log.Fatalln("Failed to create output CSV file", err)
-		}
+		// TODO: Add the data to redis database
+		// file, err := os.Create("output/news.csv")
+		// if err != nil {
+		// 	log.Fatalln("Failed to create output CSV file", err)
+		// }
 
-		defer file.Close()
+		// defer file.Close()
 
-		writer := csv.NewWriter(file)
+		// writer := csv.NewWriter(file)
 
-		headers := []string{
-			"URL",
-			"Name",
-			"Source",
-			"Category",
-		}
-		writer.Write(headers)
+		// headers := []string{
+		// 	"URL",
+		// 	"Title",
+		// 	"Source",
+		// 	"Category",
+		// }
+		// writer.Write(headers)
 
-		for _, news := range newsList {
-			record := []string{
-				news.URL,
-				news.Name,
-				news.Source,
-				news.Category,
-			}
-			writer.Write(record)
-		}
-		defer writer.Flush()
+		// for _, news := range newsList {
+		// 	record := []string{
+		// 		news.URL,
+		// 		news.Title,
+		// 		news.Source,
+		// 		news.Category,
+		// 	}
+		// 	writer.Write(record)
+		// }
+		// defer writer.Flush()
 	})
 	collector.OnError(func(r *colly.Response, e error) {
 		fmt.Println("Blimey, an error occurred!:", e)
