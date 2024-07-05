@@ -10,8 +10,27 @@ import (
 )
 
 func GetSources(c *gin.Context) {
+	sources, err := db.RedisClient.LRange(db.Ctx, "sources", 0, -1).Result()
+	if err != nil {
+		c.JSON(500, gin.H{
+			"message": "Error getting sources",
+		})
+		return
+	}
+	jsonData := make([]Source, 0)
+	for _, source := range sources {
+		var sourceData Source
+		err := json.Unmarshal([]byte(source), &sourceData)
+		if err != nil {
+			c.JSON(500, gin.H{
+				"message": "Error getting sources",
+			})
+			return
+		}
+		jsonData = append(jsonData, sourceData)
+	}
 	c.JSON(200, gin.H{
-		"message": "Sources []",
+		"data": jsonData,
 	})
 }
 
@@ -48,5 +67,6 @@ func CreateSource(c *gin.Context) {
 type Source struct {
 	Name      string `json:"name"`
 	URL       string `json:"url"`
+	Category  string `json:"category"`
 	Structure string `json:"structure"`
 }
