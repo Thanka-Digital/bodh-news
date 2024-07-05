@@ -2,14 +2,18 @@ package scraper
 
 import (
 	"encoding/csv"
+	"encoding/json"
 	"fmt"
 	"log"
 	"os"
+	"strings"
+	"thankadigital/bodhnews/db"
+	"thankadigital/bodhnews/types"
 
 	"github.com/gocolly/colly"
 )
 
-func ScrapeNews() {
+func ScrapeNews() []types.News {
 	collector := colly.NewCollector(
 		colly.Async(true),
 	)
@@ -17,14 +21,24 @@ func ScrapeNews() {
 		Parallelism: 4,
 	})
 
-	pagesToScrape := []string{
-		"https://ekantipur.com/",
-		"https://sagarmatha.tv/",
-		"https://www.onlinekhabar.com/",
-		// "https://www.hamropatro.com/news/international",
+	sources, err := db.RedisClient.LRange(db.Ctx, "sources", 0, -1).Result()
+	if err != nil {
+		log.Fatalln("Error getting sources", err)
+	}
+	jsonData := make([]types.Source, 0)
+	for _, source := range sources {
+		var sourceData types.Source
+		err := json.Unmarshal([]byte(source), &sourceData)
+		if err != nil {
+			log.Fatalln("Error getting sources", err)
+		}
+		jsonData = append(jsonData, sourceData)
 	}
 
-	var newsList []News
+	var pagesToScrape = []types.Source{}
+	pagesToScrape = append(pagesToScrape, jsonData...)
+
+	var newsList []types.News
 
 	collector.OnRequest(func(r *colly.Request) {
 		fmt.Println("Visiting", r.URL)
@@ -33,48 +47,20 @@ func ScrapeNews() {
 		fmt.Println("Got a response from", r.Request.URL)
 	})
 
-	// ekantipur
-	collector.OnHTML("article", func(article *colly.HTMLElement) {
-		news := News{}
+	for _, page := range pagesToScrape {
+		structures := strings.Split(page.Structure, " ")
+		collector.OnHTML(structures[0], func(article *colly.HTMLElement) {
+			news := types.News{}
 
-		news.url = article.ChildAttr("a", "href")
-		news.name = article.ChildText("h2")
-		news.source = "ekantipur"
+			urlStructure := strings.Split(structures[2], "-")
+			news.URL = article.ChildAttr(urlStructure[0], urlStructure[1])
+			news.Name = article.ChildText(structures[1])
+			news.Source = page.Name
+			news.Category = page.Category
 
-		newsList = append(newsList, news)
-	})
-
-	// collector.OnHTML("div.chip", func(source *colly.HTMLElement) {
-	// 	s := News{}
-
-	// 	s.url = ""
-	// 	s.name = source.ChildText("span")
-	// 	s.source = "hamropatro"
-
-	// 	newsList = append(newsList, s)
-	// })
-
-	// Sagarmatha
-	collector.OnHTML("section.no-section-full", func(section *colly.HTMLElement) {
-		news := News{}
-
-		news.url = section.ChildAttr("a", "href")
-		news.name = section.ChildText("h2")
-		news.source = "sagarmatha"
-
-		newsList = append(newsList, news)
-	})
-
-	// Onlinekhabar
-	collector.OnHTML("section.ok-bises", func(section *colly.HTMLElement) {
-		news := News{}
-
-		news.url = section.ChildAttr("a", "href")
-		news.name = section.ChildText("h2")
-		news.source = "onlinekhabar"
-
-		newsList = append(newsList, news)
-	})
+			newsList = append(newsList, news)
+		})
+	}
 
 	collector.OnScraped(func(c *colly.Response) {
 		file, err := os.Create("output/news.csv")
@@ -82,7 +68,6 @@ func ScrapeNews() {
 			log.Fatalln("Failed to create output CSV file", err)
 		}
 
-		// json.NewEncoder(file).Encode(newsList)
 		defer file.Close()
 
 		writer := csv.NewWriter(file)
@@ -91,14 +76,16 @@ func ScrapeNews() {
 			"URL",
 			"Name",
 			"Source",
+			"Category",
 		}
 		writer.Write(headers)
 
 		for _, news := range newsList {
 			record := []string{
-				news.url,
-				news.name,
-				news.source,
+				news.URL,
+				news.Name,
+				news.Source,
+				news.Category,
 			}
 			writer.Write(record)
 		}
@@ -109,13 +96,9 @@ func ScrapeNews() {
 	})
 
 	for _, page := range pagesToScrape {
-		collector.Visit(page)
+		collector.Visit(page.URL)
 	}
 	collector.Wait()
-}
 
-type News struct {
-	url    string
-	name   string
-	source string
+	return newsList
 }

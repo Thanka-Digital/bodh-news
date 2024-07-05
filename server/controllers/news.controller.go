@@ -7,8 +7,8 @@ import (
 )
 
 func GetScrappedNews(c *gin.Context) {
-	scraper.ScrapeNews()
+	news := scraper.ScrapeNews()
 	c.JSON(200, gin.H{
-		"message": "News scrapped successfully!",
+		"message": news,
 	})
 }
