@@ -26,3 +26,10 @@ output/
 
 # Temp files
 tmp/
+
+# Environment variables file
+.env*
+!.env.example
+
+# API testing
+*.rest
