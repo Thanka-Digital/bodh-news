@@ -8,10 +8,13 @@ type Source struct {
 }
 
 type News struct {
+	Title    string `json:"title"`
 	URL      string `json:"url"`
-	Name     string `json:"name"`
 	Source   string `json:"source"`
 	Category string `json:"category"`
+	Date     string `json:"date"`
+	Summary  string `json:"summary"`
+	ImageUrl string `json:"imageUrl"`
 }
 
 type Category struct {

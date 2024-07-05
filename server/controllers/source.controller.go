@@ -48,6 +48,7 @@ func CreateSource(c *gin.Context) {
 		Name:      source.Name,
 		URL:       source.URL,
 		Structure: source.Structure,
+		Category:  source.Category,
 	})
 	if err != nil {
 		c.JSON(500, gin.H{
