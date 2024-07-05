@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net/http"
 	"thankadigital/bodhnews/db"
+	"thankadigital/bodhnews/types"
 
 	"github.com/gin-gonic/gin"
 )
@@ -17,9 +18,9 @@ func GetCategories(c *gin.Context) {
 		})
 		return
 	}
-	jsonData := make([]Category, 0)
+	jsonData := make([]types.Category, 0)
 	for _, category := range categories {
-		var categoryData Category
+		var categoryData types.Category
 		err := json.Unmarshal([]byte(category), &categoryData)
 		if err != nil {
 			c.JSON(500, gin.H{
@@ -35,7 +36,7 @@ func GetCategories(c *gin.Context) {
 }
 
 func CreateCategory(c *gin.Context) {
-	var category Category
+	var category types.Category
 	if err := c.BindJSON(&category); err != nil {
 		fmt.Println(err)
 		c.JSON(400, gin.H{
@@ -43,7 +44,7 @@ func CreateCategory(c *gin.Context) {
 		})
 		return
 	}
-	categoryJson, err := json.Marshal(Category{
+	categoryJson, err := json.Marshal(types.Category{
 		Name: category.Name,
 	})
 	if err != nil {
@@ -60,8 +61,4 @@ func CreateCategory(c *gin.Context) {
 		return
 	}
 	c.IndentedJSON(http.StatusCreated, category)
-}
-
-type Category struct {
-	Name string `json:"name"`
 }

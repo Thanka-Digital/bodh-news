@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net/http"
 	"thankadigital/bodhnews/db"
+	"thankadigital/bodhnews/types"
 
 	"github.com/gin-gonic/gin"
 )
@@ -17,9 +18,9 @@ func GetSources(c *gin.Context) {
 		})
 		return
 	}
-	jsonData := make([]Source, 0)
+	jsonData := make([]types.Source, 0)
 	for _, source := range sources {
-		var sourceData Source
+		var sourceData types.Source
 		err := json.Unmarshal([]byte(source), &sourceData)
 		if err != nil {
 			c.JSON(500, gin.H{
@@ -35,7 +36,7 @@ func GetSources(c *gin.Context) {
 }
 
 func CreateSource(c *gin.Context) {
-	var source Source
+	var source types.Source
 	if err := c.BindJSON(&source); err != nil {
 		fmt.Println(err)
 		c.JSON(400, gin.H{
@@ -43,7 +44,7 @@ func CreateSource(c *gin.Context) {
 		})
 		return
 	}
-	sourceJson, err := json.Marshal(Source{
+	sourceJson, err := json.Marshal(types.Source{
 		Name:      source.Name,
 		URL:       source.URL,
 		Structure: source.Structure,
@@ -62,11 +63,4 @@ func CreateSource(c *gin.Context) {
 		return
 	}
 	c.IndentedJSON(http.StatusCreated, source)
-}
-
-type Source struct {
-	Name      string `json:"name"`
-	URL       string `json:"url"`
-	Category  string `json:"category"`
-	Structure string `json:"structure"`
 }
