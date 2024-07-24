@@ -7,6 +7,7 @@ import (
 	"strings"
 	"thankadigital/bodhnews/db"
 	"thankadigital/bodhnews/types"
+	"time"
 
 	"github.com/gocolly/colly"
 )
@@ -70,35 +71,30 @@ func ScrapeNews() []types.News {
 	}
 
 	collector.OnScraped(func(c *colly.Response) {
-		// TODO: Add the data to redis database
-		// file, err := os.Create("output/news.csv")
-		// if err != nil {
-		// 	log.Fatalln("Failed to create output CSV file", err)
-		// }
+		// TODO: Optimize the array push
 
-		// defer file.Close()
+		for _, news := range newsList {
+			newsJson, err := json.Marshal(types.News{
+				Title:    news.Title,
+				URL:      news.URL,
+				Source:   news.Source,
+				Category: news.Category,
+				Date:     news.Date,
+				Summary:  news.Summary,
+				ImageUrl: news.ImageUrl,
+			})
+			if err != nil {
+				log.Fatalln("Error creating news", err)
+			}
+			err = db.RedisClient.LPush(db.Ctx, "news", newsJson).Err()
+			if err != nil {
+				log.Fatalln("Error saving news", err)
+			}
+		}
 
-		// writer := csv.NewWriter(file)
-
-		// headers := []string{
-		// 	"URL",
-		// 	"Title",
-		// 	"Source",
-		// 	"Category",
-		// }
-		// writer.Write(headers)
-
-		// for _, news := range newsList {
-		// 	record := []string{
-		// 		news.URL,
-		// 		news.Title,
-		// 		news.Source,
-		// 		news.Category,
-		// 	}
-		// 	writer.Write(record)
-		// }
-		// defer writer.Flush()
+		db.RedisClient.ExpireAt(db.Ctx, "news", time.Now().Add(time.Hour*24))
 	})
+
 	collector.OnError(func(r *colly.Response, e error) {
 		fmt.Println("Blimey, an error occurred!:", e)
 	})
