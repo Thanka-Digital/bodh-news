@@ -1,16 +1,12 @@
 import { Container } from "@mantine/core";
 import "./App.css";
+import BRoutes from "./routes/BRoutes";
 
 function App() {
   return (
-    <>
-      <div>
-        <Container fluid h={50} bg="var(--mantine-color-blue-light)">
-          Fluid container has 100% max-width
-        </Container>
-        <p className="text-xl text-red-300">hello</p>
-      </div>
-    </>
+    <Container>
+      <BRoutes />
+    </Container>
   );
 }
 
