@@ -35,6 +35,8 @@ export default function Navbar() {
             placeholder="Search"
           />
         </div>
+
+        <hr />
       </div>
 
     </div>
