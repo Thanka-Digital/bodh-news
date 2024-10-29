@@ -4,17 +4,19 @@ interface BbuttonProps {
   text: string;
   variant?: string;
   color?: string;
+  rounded?: string;
 }
 
 const Bbutton = (props: BbuttonProps) => {
   const {
     text,
     variant,
-    color
+    color,
+    rounded,
   } = props;
 
   return (
-    <Button variant={variant} color={color}>
+    <Button variant={variant} color={color} radius={rounded}>
       {text}
     </Button>
   )
