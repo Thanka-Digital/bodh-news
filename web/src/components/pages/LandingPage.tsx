@@ -1,7 +1,11 @@
-
+import PublicLayout from "../../layout/PublicLayout";
 
 export default function LandingPage() {
   return (
-    <div>LandingPage</div>
+    <div>
+      <PublicLayout>
+        hi
+      </PublicLayout>
+    </div>
   )
 }
