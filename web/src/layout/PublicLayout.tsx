@@ -9,10 +9,7 @@ export default function PublicLayout({
 }) {
   return (
     <main>
-      <Navbar />
       <div className="w-[80%] mx-auto">{children}</div>
-      <Subscribe />
-      <Footer />
     </main>
   );
 }

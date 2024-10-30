@@ -4,7 +4,7 @@ import { EllipsisVertical } from "lucide-react";
 
 export default function ArticleCard() {
   return (
-    <section className="bg-slate-100 p-2">
+    <section className="bg-white p-2">
       <div className="flex justify-between">
         <div className="flex gap-4 items-center">
           <img
@@ -15,8 +15,8 @@ export default function ArticleCard() {
           <p className="text-md font-semibold text-black">Cricnepal</p>
         </div>
         <div className="flex gap-3 items-center">
-          <Bbutton text="Sports E-news" />
-          <Bbutton text="Lean Left" />
+          <Bbutton text="Sports E-news" color="#000000" />
+          <Bbutton text="Lean Left" color="#003893" />
           <span>
             <EllipsisVertical />
           </span>
