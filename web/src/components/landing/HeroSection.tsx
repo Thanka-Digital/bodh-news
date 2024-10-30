@@ -1,19 +1,20 @@
 import { Image } from "@mantine/core";
 import { heroCardInfo } from "../../utils/landingCardInfo";
 
-interface HeroSectionProps {
+export interface LandingSectionCardProps {
   image: string;
-  writer: string;
-  heading: string;
-  newsTag: string;
-  className: string;
+  writer?: string;
+  title: string;
+  newsTag?: string;
+  className?: string;
+  source?: string;
 }
 
-const HeroSectionCard = (props: HeroSectionProps) => {
+const HeroSectionCard = (props: LandingSectionCardProps) => {
   const {
     image,
     writer,
-    heading,
+    title,
     newsTag,
     className,
   } = props;
@@ -31,7 +32,7 @@ const HeroSectionCard = (props: HeroSectionProps) => {
 
       <div className="flex flex-col gap-2 absolute bottom-[30%] left-[5%]">
         <p className="text-lg">{writer}</p>
-        <p className="text-2xl">{heading}</p>
+        <p className="text-2xl">{title}</p>
       </div>
     </div >
   )
@@ -44,7 +45,7 @@ export default function HeroSection() {
         heroCardInfo.map((object, index) => (
           <HeroSectionCard
             key={index}
-            heading={object.heading}
+            title={object.heading}
             image={object.image}
             newsTag={object.tag}
             writer={object.writer}

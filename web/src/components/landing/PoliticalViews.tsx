@@ -1,15 +1,9 @@
 import { Image } from "@mantine/core";
 import { LandingHeader } from "../pages/LandingPage";
 import { politicalBiasedCardInfo, politicalViewsCardInfo } from "../../utils/landingCardInfo";
+import { LandingSectionCardProps } from "./HeroSection";
 
-interface PoliticalCardProps {
-  title: string;
-  image: string;
-  source?: string;
-  newsTag?: string;
-}
-
-const PoliticalViewsCard = (props: PoliticalCardProps) => {
+const PoliticalViewsCard = (props: LandingSectionCardProps) => {
   const {
     title,
     image,
@@ -35,7 +29,7 @@ const PoliticalViewsCard = (props: PoliticalCardProps) => {
   )
 }
 
-const PoliticalBiasedCard = (props: PoliticalCardProps) => {
+const PoliticalBiasedCard = (props: LandingSectionCardProps) => {
   const {
     title,
     image,

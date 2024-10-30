@@ -2,6 +2,8 @@ import { Divider } from "@mantine/core";
 import PublicLayout from "../../layout/PublicLayout";
 import HeroSection from "../landing/HeroSection";
 import PoliticalViews from "../landing/PoliticalViews";
+import Entertainment from "../landing/Entertainment";
+import Sports from "../landing/Sports";
 
 export const LandingHeader = ({ text }: { text: string }) => {
   return (
@@ -18,6 +20,8 @@ export default function LandingPage() {
       <PublicLayout>
         <HeroSection />
         <PoliticalViews />
+        <Entertainment />
+        <Sports />
       </PublicLayout>
     </div>
   )

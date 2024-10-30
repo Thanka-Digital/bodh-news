@@ -83,3 +83,59 @@ export const politicalViewsCardInfo = [
     source: "Coverage : 6 sources"
   },
 ]
+
+export const carouselImage = [
+  {
+    image: "/images/politicalSection/Pb.png"
+  },
+  {
+    image: "/images/politicalSection/Pb.png"
+  },
+  {
+    image: "/images/politicalSection/Pb.png"
+  },
+]
+
+export const EnandSInfo =
+{
+  entertainment: [
+    {
+      title: "Alex Shah Qualifies for 2024 Paris Swimming  Olympics",
+      image: "/images/politicalSection/Pb.png",
+      writer: "Utsab Gurung - 30 June 2024"
+    },
+    {
+      title: "Alex Shah Qualifies for 2024 Paris Swimming  Olympics",
+      image: "/images/politicalSection/Pb.png",
+      writer: "Utsab Gurung - 30 June 2024"
+    },
+    {
+      title: "Alex Shah Qualifies for 2024 Paris Swimming  Olympics",
+      image: "/images/politicalSection/Pb.png",
+      writer: "Utsab Gurung - 30 June 2024"
+    },
+  ],
+
+  sports: [
+    {
+      title: "Alex Shah Qualifies for 2024 Paris Swimming  Olympics",
+      image: "/images/politicalSection/Pb.png",
+      writer: "Utsab Gurung - 30 June 2024"
+    },
+    {
+      title: "Alex Shah Qualifies for 2024 Paris Swimming  Olympics",
+      image: "/images/politicalSection/Pb.png",
+      writer: "Utsab Gurung - 30 June 2024"
+    },
+    {
+      title: "Alex Shah Qualifies for 2024 Paris Swimming  Olympics",
+      image: "/images/politicalSection/Pb.png",
+      writer: "Utsab Gurung - 30 June 2024"
+    },
+    {
+      title: "Alex Shah Qualifies for 2024 Paris Swimming  Olympics",
+      image: "/images/politicalSection/Pb.png",
+      writer: "Utsab Gurung - 30 June 2024"
+    },
+  ],
+}
