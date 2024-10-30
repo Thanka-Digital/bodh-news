@@ -14,7 +14,7 @@ export default function Subscribe() {
             Stay Informed! Subscribe now to receive the latest news, exclusive offers, and important announcements.
           </p>
 
-          <section className="flex gap-4">
+          <section className="flex gap-8">
             <BInput
               placeholder="Enter Your Email"
               size="md"

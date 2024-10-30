@@ -20,7 +20,7 @@ export default function Navbar() {
         />
       </div>
 
-      <div className="flex justify-between min-w-[80%] mx-auto items-center py-2 sticky z-5 top-0">
+      <div className="flex justify-between w-[80%] mx-auto items-center py-2 sticky z-10 top-0">
         <div className="flex gap-8">
           {
             navLinks.map((object) => (
