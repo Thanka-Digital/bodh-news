@@ -1,11 +1,11 @@
 import PublicLayout from "../../layout/PublicLayout";
+import ExploreArticleDetails from "./explore-article/ExploreArticleDetails";
 
 export default function LandingPage() {
   return (
     <div>
-      <PublicLayout>
-        hi
-      </PublicLayout>
+      <PublicLayout>hello</PublicLayout>
+      <ExploreArticleDetails />
     </div>
-  )
+  );
 }
