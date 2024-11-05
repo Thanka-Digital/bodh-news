@@ -13,13 +13,13 @@ export const EandSCard = (props: LandingSectionCardProps) => {
   } = props;
 
   return (
-    <div className="flex gap-3 items-center">
-      <Image src={image} />
+    <div className="flex gap-5 items-start">
+      <Image src={image} w={200} h={150} />
       <section className="flex flex-col gap-4">
-        <p>{writer}</p>
-        <p>{title}</p>
+        <p className="text-sm">{writer}</p>
+        <p className="font-medium">{title}</p>
       </section>
-    </div>
+    </div >
   )
 }
 
@@ -30,7 +30,7 @@ export default function Entertainment() {
         text="Entertainment"
       />
 
-      <div>
+      <div className="py-8">
         <Carousel loop>
           {
             carouselImage.map((object, index) => (
@@ -43,7 +43,7 @@ export default function Entertainment() {
           }
         </Carousel>
 
-        <section className="flex gap-8">
+        <section className="flex gap-8 mt-8">
           {
             EnandSInfo.entertainment.map((object, index) => (
               <EandSCard

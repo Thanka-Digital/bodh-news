@@ -2,6 +2,7 @@ import { Image } from "@mantine/core";
 import { LandingHeader } from "../pages/LandingPage";
 import { politicalBiasedCardInfo, politicalViewsCardInfo } from "../../utils/landingCardInfo";
 import { LandingSectionCardProps } from "./HeroSection";
+import Bbutton from "../global/Bbutton";
 
 const PoliticalViewsCard = (props: LandingSectionCardProps) => {
   const {
@@ -37,7 +38,7 @@ const PoliticalBiasedCard = (props: LandingSectionCardProps) => {
   } = props;
 
   return (
-    <div className="bg-[#EEEFE9] p-6 flex flex-col gap-2 rounded-lg my-4">
+    <div className="bg-[#EEEFE9] p-6 flex flex-col gap-2 rounded-lg my-8">
       <Image src={image} />
 
       <div className="flex gap-4">
@@ -57,33 +58,57 @@ export default function PoliticalViews() {
         text="Political Views"
       />
 
-      <div className="flex gap-8">
-        <section>
-          {
-            politicalViewsCardInfo.map((object, index) => (
-              <PoliticalViewsCard
-                image={object.image}
-                source={object.source}
-                title={object.title}
-                key={index}
-                newsTag={object.newsTag}
-              />
-            ))
-          }
-        </section>
+      <div className="flex gap-8 py-8">
+        <div>
+          <Image
+            src="images/politicalSection/Political-bg.png"
+          />
+          <section>
+            {
+              politicalViewsCardInfo.map((object, index) => (
+                <PoliticalViewsCard
+                  image={object.image}
+                  source={object.source}
+                  title={object.title}
+                  key={index}
+                  newsTag={object.newsTag}
+                />
+              ))
+            }
+          </section>
+        </div>
 
-        <section>
-          {
-            politicalBiasedCardInfo.map((object, index) => (
-              <PoliticalBiasedCard
-                image={object.image}
-                source={object.source}
-                title={object.title}
-                key={index}
-              />
-            ))
-          }
-        </section>
+        <div className="flex flex-col gap-2 items-center">
+          <section className="flex justify-between w-full">
+            <p className="underline text-xl font-medium w-[70%]">
+              Stories disproportionately reported by the Left or the Right
+            </p>
+            <p className="text-sm mt-2">
+              June 27,2024
+            </p>
+          </section>
+
+          <section>
+            {
+              politicalBiasedCardInfo.map((object, index) => (
+                <PoliticalBiasedCard
+                  image={object.image}
+                  source={object.source}
+                  title={object.title}
+                  key={index}
+                />
+              ))
+            }
+          </section>
+
+          <Bbutton
+            text="View More Feed"
+            variant="outline"
+            color="black"
+            size="lg"
+          />
+        </div>
+
       </div>
 
     </div>

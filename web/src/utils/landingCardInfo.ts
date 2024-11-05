@@ -1,35 +1,31 @@
 export const heroCardInfo = [
   {
+    id: 1,
     image: "/images/heroSection/h1.png",
     tag: "Sports",
     heading: "Three Member Of Nepal National Cricket Team TO Play In Global T20 Leauge",
     writer: "Alson Garbuja - 30 June 2024",
-    colSpan: 3,
-    rowSpan: 2,
   },
   {
+    id: 2,
     image: "/images/heroSection/h2.png",
     tag: "Entertainment",
     heading: "Three Member Of Nepal National Cricket Team TO Play In Global T20 Leauge",
     writer: "Alson Garbuja - 30 June 2024",
-    colSpan: 1,
-    rowSpan: 1,
   },
   {
+    id: 3,
     image: "/images/heroSection/h3.png",
     tag: "Politics",
     heading: "Three Member Of Nepal National Cricket Team TO Play In Global T20 Leauge",
     writer: "Alson Garbuja - 30 June 2024",
-    colSpan: 1,
-    rowSpan: 1,
   },
   {
+    id: 4,
     image: "/images/heroSection/h4.png",
     tag: "Policitics",
     heading: "Three Member Of Nepal National Cricket Team TO Play In Global T20 Leauge",
     writer: "Alson Garbuja - 30 June 2024",
-    colSpan: 2,
-    rowSpan: 1,
   },
 ]
 

@@ -4,9 +4,9 @@ import Bbutton from "../global/Bbutton";
 
 export default function Subscribe() {
   return (
-    <div className="flex bg-subBg justify-center items-center p-8">
+    <div className="flex bg-subBg justify-center items-center p-16">
 
-      <div className="flex gap-8 items-center bg-white p-6 rounded-3xl">
+      <div className="flex gap-8 items-center bg-white p-8 rounded-3xl">
         <Image src={"/images/Lnews.png"} />
 
         <div className="flex flex-col gap-6">

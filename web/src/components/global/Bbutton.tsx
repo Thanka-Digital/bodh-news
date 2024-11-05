@@ -5,6 +5,7 @@ interface BbuttonProps {
   variant?: string;
   color?: string;
   rounded?: string;
+  size?: string;
 }
 
 const Bbutton = (props: BbuttonProps) => {
@@ -13,10 +14,11 @@ const Bbutton = (props: BbuttonProps) => {
     variant,
     color,
     rounded,
+    size
   } = props;
 
   return (
-    <Button variant={variant} color={color} radius={rounded}>
+    <Button variant={variant} color={color} radius={rounded} size={size}>
       {text}
     </Button>
   )
